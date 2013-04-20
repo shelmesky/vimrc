@@ -10,5 +10,8 @@ set nowb
 set noswapfile
 
 " NERDTree
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
+
+" open bash shell
+nmap <leader>shell :!bash<CR>
