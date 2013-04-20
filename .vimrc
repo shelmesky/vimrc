@@ -1,2 +1,3 @@
 ""load all configuration
-source $HOME/.vim/*.vim
+source $HOME/.vim/main.vim
+source $HOME/.vim/extra.vim
