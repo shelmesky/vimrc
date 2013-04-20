@@ -9,4 +9,4 @@ set nobackup
 set nowb
 set noswapfile
 
-
+nmap <leader>nerd :NERDTree<cr>
