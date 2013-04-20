@@ -9,4 +9,7 @@ set nobackup
 set nowb
 set noswapfile
 
-nmap <leader>nerd :NERDTree<cr>
+" NERDTree
+autocmd vimenter * NERDTree
+
+" map <C-n> :NERDTreeToggle<CR>
