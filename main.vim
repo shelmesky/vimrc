@@ -2,7 +2,7 @@ set cul "高亮光标所在行
 set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示  
 set go=             " 不要图形按钮  
 syntax on
-colorscheme candy     " 设置背景主题  
+colorscheme desert     " 设置背景主题  
 set guifont=Consolas:h10:cANSI   " 设置字体  
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
 autocmd InsertEnter * se cul    " 用浅色高亮当前行  
@@ -54,5 +54,6 @@ set viminfo+=!
 " 带有如下符号的单词不要被换行分割
 set iskeyword+=_,$,@,%,#,-
 " 字符间插入的像素行数目
-
+set nocp
+set backspace=indent,eol,start
 
