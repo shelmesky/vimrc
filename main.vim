@@ -8,7 +8,7 @@ if has('gui_running')
 	colorscheme candy     " 设置背景主题  
 else
 	set guifont=Consolas:h10:cANSI   " 设置字体  
-	colorscheme desert     " 设置背景主题  
+	colorscheme candy     " 设置背景主题  
 endif
 
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
