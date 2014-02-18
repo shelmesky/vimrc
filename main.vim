@@ -4,6 +4,8 @@ set go=             " 不要图形按钮
 syntax on
 
 if has('gui_running')
+    set guioptions-=T
+    set t_Co=256
 	set guifont=Consolas\ 10   " 设置字体  
 	colorscheme candy     " 设置背景主题  
 else
@@ -21,11 +23,18 @@ set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)
 "set foldenable      " 允许折叠  
 "set foldmethod=manual   " 手动折叠  
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
+
 " 显示中文帮助
 if version >= 603
 	set helplang=cn
 	set encoding=utf-8
 endif
+
+try
+    lang=zh_CN
+catch
+endtry
+
 " 自动缩进
 set autoindent
 set cindent
@@ -64,3 +73,19 @@ set iskeyword+=_,$,@,%,#,-
 set nocp
 set backspace=indent,eol,start
 
+" 使用Ctrl加方向键切换窗口
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+
+" Tab 配置
+map <leader>tn :tabnew %<cr>
+map <leader>te :tabedit 
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+
+
+" 将Ctrl+Space映射为Golang自动补全
+imap <C-l> <C-x><C-o>
