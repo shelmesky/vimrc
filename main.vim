@@ -95,6 +95,6 @@ map <F4> :!bash<CR>
 imap <F4> <ESC>:!bash<CR>
 
 " 将Ctrl+k映射为保存
-" map <C-k> :w!<CR>
-" imap <C-k> <ESC>:w!<CR>
+map <C-k> :w!<CR>
+imap <C-k> <ESC>:w!<CR>
 
