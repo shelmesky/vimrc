@@ -88,4 +88,13 @@ map <leader>tm :tabmove
 
 
 " 将Ctrl+Space映射为Golang自动补全
-imap <C-l> <C-x><C-o>
+imap <C-d> <C-x><C-o>
+
+" 将F4映射为BASH
+map <F4> :!bash<CR>
+imap <F4> <ESC>:!bash<CR>
+
+" 将Ctrl+m映射为保存
+map <C-m> :w!<CR>
+imap <C-m> <ESC>:w!<CR>
+
