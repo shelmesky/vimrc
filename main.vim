@@ -94,7 +94,7 @@ imap <C-d> <C-x><C-o>
 map <F4> :!bash<CR>
 imap <F4> <ESC>:!bash<CR>
 
-" 将Ctrl+m映射为保存
-map <C-m> :w!<CR>
-imap <C-m> <ESC>:w!<CR>
+" 将Ctrl+k映射为保存
+" map <C-k> :w!<CR>
+" imap <C-k> <ESC>:w!<CR>
 
