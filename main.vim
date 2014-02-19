@@ -81,13 +81,13 @@ map <C-l> <C-W>l
 
 
 " Tab 配置
-map <leader>tn :tabnew %<cr>
-map <leader>te :tabedit 
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
+map tn :tabnew %<cr>
+map te :tabedit 
+map tc :tabclose<cr>
+map tm :tabmove 
 
 
-" 将Ctrl+Space映射为Golang自动补全
+" 将Ctrl+d映射为Golang自动补全
 imap <C-d> <C-x><C-o>
 
 " 将F4映射为BASH
