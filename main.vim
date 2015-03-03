@@ -6,10 +6,13 @@ syntax on
 if has('gui_running')
     set guioptions-=T
     set t_Co=256
-	set guifont=Consolas\ 10   " 设置字体  
+	"set guifont=Consolas\ 10   " 设置字体  
+	set guifont=Anonymice\ Powerline\ 12   " 设置字体  
 	colorscheme candy     " 设置背景主题  
 else
-	set guifont=Consolas:h10:cANSI   " 设置字体  
+    set t_Co=256
+	"set guifont=Consolas:h10:cANSI   " 设置字体  
+	set guifont=Anonymice\ Powerline\ 12   " 设置字体  
 	colorscheme candy     " 设置背景主题  
 endif
 

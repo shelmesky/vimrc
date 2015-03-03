@@ -1,7 +1,6 @@
-" Fast saving
 nmap <leader>w :w!<cr>
 
-set shell=/bin/bash
+set shell=/bin/zsh
 
 
 " Turn backup off, since most stuff is in SVN, git anyway...
@@ -28,3 +27,7 @@ nmap <leader>shell :!zsh<CR>
 
 " add markdown support
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" configuration for vim-powerline
+let g:Powerline_symbols = 'unicode'
+let g:Powerline_colorscheme = 'solarized256'
