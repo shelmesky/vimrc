@@ -11,7 +11,7 @@ set noswapfile
 
 " NERDTree
 " autocmd vimenter * NERDTree
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle ~/coding<CR>
 
 " open bash shell
 nmap <leader>shell :!bash<CR>
