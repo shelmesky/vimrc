@@ -9,6 +9,10 @@ set nobackup
 set nowb
 set noswapfile
 
+let NERDChristmasTree=1
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
+
 " NERDTree
 " autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle ~/coding<CR>
