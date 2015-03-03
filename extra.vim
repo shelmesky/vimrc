@@ -24,7 +24,7 @@ let NERDTreeBookmarksFile="/Users/roy/.vim/.NERDTreeBookmarks"
 map <C-n> :NERDTreeToggle ~/coding<CR>
 
 " open bash shell
-nmap <leader>shell :!bash<CR>
+nmap <leader>shell :!zsh<CR>
 
 " add markdown support
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
