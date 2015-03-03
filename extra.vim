@@ -31,3 +31,9 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " configuration for vim-powerline
 let g:Powerline_symbols = 'unicode'
 let g:Powerline_colorscheme = 'solarized256'
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
