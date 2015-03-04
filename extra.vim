@@ -69,5 +69,6 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
     \ }
 
+" 在go文件的buffer中，使用Ctrl-m打开右侧的tagbar
 nmap <C-m> :TagbarToggle<CR>
 
