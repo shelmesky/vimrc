@@ -127,4 +127,6 @@ nmap <leader>ip :!ipython<CR>
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 " 按,gv打开光标下字符串的godoc，垂直窗口
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+" 按,fm使用gofmt格式化当前buffer
+nmap <leader>fm :Fmt<CR>
 

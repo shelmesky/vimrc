@@ -80,3 +80,8 @@ nmap <C-m> :TagbarToggle<CR>
 " 打开垂直窗口跳转
 let g:godef_split=3
 
+" 按,tl打开taglist
+nmap <leader>tl  :TlistToggle<CR>
+" 设置taglist窗口自动关闭
+let Tlist_File_Fold_Auto_Close = 1
+let Tlist_Inc_Winwidth = 0
