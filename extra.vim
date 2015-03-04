@@ -71,6 +71,7 @@ let g:tagbar_type_go = {
 
 " 在go文件的buffer中，使用Ctrl-m打开右侧的tagbar
 nmap <C-m> :TagbarToggle<CR>
+nmap <leader>tn :tnext<CR>
 
 " godef的配置，在光标处代码按gd键跳转
 " 在当前窗口跳转
