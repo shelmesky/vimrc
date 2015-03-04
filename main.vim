@@ -101,3 +101,30 @@ imap <F4> <ESC>:!bash<CR>
 " map <C-k> :w!<CR>
 " imap <C-k> <ESC>:w!<CR>
 
+" 设置leader键
+let mapleader=","
+
+" leader键配置示例
+" 按,ev打开配置文件
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+" 按,sv重载配置文件
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" 按,m取消高亮搜索结果
+nmap <silent> <leader>m :nohlsearch<CR>
+" 按,w保存文件
+nmap <leader>w :w<CR>
+" 按,e在新tab打开文件
+nmap <leader>e :tabe<Space>
+" 按,r在当前tab打开文件
+nmap <leader>r :e<Space>
+" 按,p用python执行当前文件
+nmap <leader>p :!python %<CR>
+" 按,ip打开ipython
+nmap <leader>ip :!ipython<CR>
+
+" vim-go的快捷键的配置
+" 按,gd打开光标下字符串的godoc
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+" 按,gv打开光标下字符串的godoc，垂直窗口
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+
