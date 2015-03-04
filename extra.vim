@@ -85,3 +85,4 @@ nmap <leader>tl  :TlistToggle<CR>
 " 设置taglist窗口自动关闭
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_Inc_Winwidth = 0
+let Tlist_WinWidth = 30
