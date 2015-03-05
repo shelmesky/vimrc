@@ -22,6 +22,10 @@ let NERDTreeBookmarksFile="/Users/roy/.vim/.NERDTreeBookmarks"
 " autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle ~/coding<CR>
 
+" 当vim启动时没有打开文件，则启动NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 " open bash shell
 nmap <leader>shell :!zsh<CR>
 
