@@ -16,11 +16,11 @@ let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
 let NERDTreeWinPos="left"
 let NERDTreeShowBookmarks=1
-let NERDTreeBookmarksFile="/Users/roy/.vim/.NERDTreeBookmarks"
+let NERDTreeBookmarksFile="~/.vim/.NERDTreeBookmarks"
 
 " NERDTree
 " autocmd vimenter * NERDTree
-map <C-n> :NERDTreeToggle ~/coding<CR>
+map <C-n> :NERDTreeToggle .<CR>
 
 " 当vim启动时没有打开文件，则启动NERDTree
 autocmd StdinReadPre * let s:std_in=1
