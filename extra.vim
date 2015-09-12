@@ -83,7 +83,7 @@ nmap <leader>tn :tnext<CR>
 " 打开tab跳转
 "let g:godef_split=2
 " 打开垂直窗口跳转
-let g:godef_split=3
+let g:godef_split=2
 
 " 按,tl打开taglist
 nmap <leader>tl  :TlistToggle<CR>
