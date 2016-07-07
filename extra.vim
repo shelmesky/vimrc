@@ -16,7 +16,7 @@ let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
 let NERDTreeWinPos="left"
 let NERDTreeShowBookmarks=1
-let NERDTreeBookmarksFile="~/.vim/.NERDTreeBookmarks"
+let NERDTreeBookmarksFile="/Users/roy/.vim/.NERDTreeBookmarks"
 
 " NERDTree
 " autocmd vimenter * NERDTree
