@@ -13,6 +13,44 @@ import (
 	"unicode/utf8"
 )
 
+// our own readdir, which skips the files it cannot lstat
+func readdir_lstat(name string) ([]os.FileInfo, error) {
+	f, err := os.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	names, err := f.Readdirnames(-1)
+	if err != nil {
+		return nil, err
+	}
+
+	out := make([]os.FileInfo, 0, len(names))
+	for _, lname := range names {
+		s, err := os.Lstat(filepath.Join(name, lname))
+		if err != nil {
+			continue
+		}
+		out = append(out, s)
+	}
+	return out, nil
+}
+
+// our other readdir function, only opens and reads
+func readdir(dirname string) []os.FileInfo {
+	f, err := os.Open(dirname)
+	if err != nil {
+		return nil
+	}
+	fi, err := f.Readdir(-1)
+	f.Close()
+	if err != nil {
+		panic(err)
+	}
+	return fi
+}
+
 // returns truncated 'data' and amount of bytes skipped (for cursor pos adjustment)
 func filter_out_shebang(data []byte) ([]byte, int) {
 	if len(data) > 2 && data[0] == '#' && data[1] == '!' {
@@ -55,6 +93,57 @@ func has_prefix(s, prefix string, ignorecase bool) bool {
 		prefix = strings.ToLower(prefix)
 	}
 	return strings.HasPrefix(s, prefix)
+}
+
+func find_bzl_project_root(libpath, path string) (string, error) {
+	if libpath == "" {
+		return "", fmt.Errorf("could not find project root, libpath is empty")
+	}
+
+	pathMap := map[string]struct{}{}
+	for _, lp := range strings.Split(libpath, ":") {
+		lp := strings.TrimSpace(lp)
+		pathMap[filepath.Clean(lp)] = struct{}{}
+	}
+
+	path = filepath.Dir(path)
+	if path == "" {
+		return "", fmt.Errorf("project root is blank")
+	}
+
+	start := path
+	for path != "/" {
+		if _, ok := pathMap[filepath.Clean(path)]; ok {
+			return path, nil
+		}
+		path = filepath.Dir(path)
+	}
+	return "", fmt.Errorf("could not find project root in %q or its parents", start)
+}
+
+// Code taken directly from `gb`, I hope author doesn't mind.
+func find_gb_project_root(path string) (string, error) {
+	path = filepath.Dir(path)
+	if path == "" {
+		return "", fmt.Errorf("project root is blank")
+	}
+	start := path
+	for path != "/" {
+		root := filepath.Join(path, "src")
+		if _, err := os.Stat(root); err != nil {
+			if os.IsNotExist(err) {
+				path = filepath.Dir(path)
+				continue
+			}
+			return "", err
+		}
+		path, err := filepath.EvalSymlinks(path)
+		if err != nil {
+			return "", err
+		}
+		return path, nil
+	}
+	return "", fmt.Errorf("could not find project root in %q or its parents", start)
 }
 
 //-------------------------------------------------------------------------
@@ -162,17 +251,19 @@ func pack_build_context(ctx *build.Context) go_build_context {
 	}
 }
 
-func unpack_build_context(ctx *go_build_context) build.Context {
-	return build.Context{
-		GOARCH:        ctx.GOARCH,
-		GOOS:          ctx.GOOS,
-		GOROOT:        ctx.GOROOT,
-		GOPATH:        ctx.GOPATH,
-		CgoEnabled:    ctx.CgoEnabled,
-		UseAllFiles:   ctx.UseAllFiles,
-		Compiler:      ctx.Compiler,
-		BuildTags:     ctx.BuildTags,
-		ReleaseTags:   ctx.ReleaseTags,
-		InstallSuffix: ctx.InstallSuffix,
+func unpack_build_context(ctx *go_build_context) package_lookup_context {
+	return package_lookup_context{
+		Context: build.Context{
+			GOARCH:        ctx.GOARCH,
+			GOOS:          ctx.GOOS,
+			GOROOT:        ctx.GOROOT,
+			GOPATH:        ctx.GOPATH,
+			CgoEnabled:    ctx.CgoEnabled,
+			UseAllFiles:   ctx.UseAllFiles,
+			Compiler:      ctx.Compiler,
+			BuildTags:     ctx.BuildTags,
+			ReleaseTags:   ctx.ReleaseTags,
+			InstallSuffix: ctx.InstallSuffix,
+		},
 	}
 }
