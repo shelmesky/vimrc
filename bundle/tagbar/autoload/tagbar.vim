@@ -28,6 +28,11 @@ if exists(':Tagbar') == 0
     runtime plugin/tagbar.vim
 endif
 
+if exists(':Tagbar') == 0
+    echomsg 'Tagbar: Could not load plugin code, check your runtimepath!'
+    finish
+endif
+
 " Basic init {{{2
 
 redir => s:ftype_out
@@ -237,6 +242,7 @@ function! s:InitTypes() abort
         \ 'union'     : 'u'
     \ }
     let s:known_types.cpp = type_cpp
+    let s:known_types.cuda = type_cpp
     " C# {{{3
     let type_cs = s:TypeInfo.New()
     let type_cs.ctagstype = 'c#'
@@ -1022,7 +1028,7 @@ function! s:CreateAutocommands() abort
 endfunction
 
 " s:CheckForExCtags() {{{2
-" Test whether the ctags binary is actually Exuberant Ctags and not GNU ctags
+" Test whether the ctags binary is actually Exuberant Ctags and not BSD ctags
 " (or something else)
 function! s:CheckForExCtags(silent) abort
     call s:debug('Checking for Exuberant Ctags')
@@ -1080,9 +1086,9 @@ function! s:CheckForExCtags(silent) abort
 
     let ctags_output = s:ExecuteCtags(ctags_cmd)
 
-    if v:shell_error || ctags_output !~# 'Exuberant Ctags'
+    if v:shell_error || ctags_output !~# '\(Exuberant\|Universal\) Ctags'
         let errmsg = 'Tagbar: Ctags doesn''t seem to be Exuberant Ctags!'
-        let infomsg = 'GNU ctags will NOT WORK.' .
+        let infomsg = 'BSD ctags will NOT WORK.' .
             \ ' Please download Exuberant Ctags from ctags.sourceforge.net' .
             \ ' and install it in a directory in your $PATH' .
             \ ' or set g:tagbar_ctags_bin.'
@@ -1139,6 +1145,11 @@ function! s:CheckExCtagsVersion(output) abort
 
     if a:output =~ 'Exuberant Ctags Development'
         call s:debug("Found development version, assuming compatibility")
+        return 1
+    endif
+
+    if a:output =~ 'Universal Ctags'
+        call s:debug("Found Universal Ctags, assuming compatibility")
         return 1
     endif
 
@@ -2077,8 +2088,10 @@ function! s:ProcessFile(fname, ftype) abort
         let parts = split(line, ';"')
         if len(parts) == 2 " Is a valid tag line
             let taginfo = s:ParseTagline(parts[0], parts[1], typeinfo, fileinfo)
-            let fileinfo.fline[taginfo.fields.line] = taginfo
-            call add(fileinfo.tags, taginfo)
+            if !empty(taginfo)
+                let fileinfo.fline[taginfo.fields.line] = taginfo
+                call add(fileinfo.tags, taginfo)
+            endif
         endif
     endfor
 
@@ -2255,7 +2268,9 @@ function! s:ParseTagline(part1, part2, typeinfo, fileinfo) abort
     " When splitting fields make sure not to create empty keys or values in
     " case a value illegally contains tabs
     let fields = split(a:part2, '^\t\|\t\ze\w\+:')
-    let taginfo.fields.kind = remove(fields, 0)
+    if fields[0] !~# ':'
+        let taginfo.fields.kind = remove(fields, 0)
+    endif
     for field in fields
         " can't use split() since the value can contain ':'
         let delimit = stridx(field, ':')
@@ -2281,6 +2296,16 @@ function! s:ParseTagline(part1, part2, typeinfo, fileinfo) abort
     " Do some sanity checking in case ctags reports invalid line numbers
     if taginfo.fields.line < 0
         let taginfo.fields.line = 0
+    endif
+
+    if !has_key(taginfo.fields, 'kind')
+        call s:debug("Warning: No 'kind' field found for tag " . basic_info[0] . "!")
+        if index(s:warnings.type, a:typeinfo.ftype) == -1
+            call s:warning("No 'kind' field found for tag " . basic_info[0] . "!" .
+                         \ " Please read the last section of ':help tagbar-extend'.")
+            call add(s:warnings.type, a:typeinfo.ftype)
+        endif
+        return {}
     endif
 
     " Make some information easier accessible
@@ -2314,6 +2339,7 @@ function! s:ParseTagline(part1, part2, typeinfo, fileinfo) abort
                 \ ' Please read '':help tagbar-extend''.')
             call add(s:warnings.type, a:typeinfo.ftype)
         endif
+        return {}
     endtry
 
     return taginfo
@@ -3644,7 +3670,7 @@ function! s:ExecuteCtags(ctags_cmd) abort
         call s:debug(v:statusmsg)
         redraw!
     else
-        let ctags_output = system(a:ctags_cmd)
+        silent let ctags_output = system(a:ctags_cmd)
     endif
 
     if &shell =~ 'cmd\.exe'

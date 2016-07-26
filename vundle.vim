@@ -30,7 +30,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'Lokaltog/vim-powerline'
 Plugin 'fatih/vim-go'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Bundle 'scrooloose/nerdtree'
+" Bundle 'scrooloose/nerdtree'
 Bundle 'majutsushi/tagbar'
 Plugin 'vim-scripts/taglist.vim'
 
