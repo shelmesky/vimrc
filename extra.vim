@@ -17,6 +17,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeWinPos="left"
 let NERDTreeShowBookmarks=1
 let NERDTreeBookmarksFile="/Users/roy/.vim/.NERDTreeBookmarks"
+let NERDTreeWinSize=45
 
 " NERDTree
 " autocmd vimenter * NERDTree
