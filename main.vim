@@ -7,12 +7,13 @@ if has('gui_running')
     set guioptions-=T
     set t_Co=256
 	"set guifont=Consolas\ 10   " 设置字体  
-	set guifont=Anonymice\ Powerline\ 11   " 设置字体  
+	set guifont=Source\ Code\ Pro\ for\ Powerline\ Regular\ 11   " 设置字体  
 	colorscheme candycode     " 设置背景主题  
 else
     set t_Co=256
 	"set guifont=Consolas:h10:cANSI   " 设置字体  
-	set guifont=Anonymice\ Powerline\ 11   " 设置字体  
+	"set guifont=Anonymice\ Powerline\ 11   " 设置字体  
+	set guifont=Source\ Code\ Pro\ for\ Powerline\ Regular\ 11   " 设置字体  
 	colorscheme molokai " 设置背景主题  
 endif
 
